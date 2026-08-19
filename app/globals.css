@@ -92,10 +92,10 @@ svg { display: block; }
 .button > svg { margin-left: 8px; flex: 0 0 auto; }
 
 /* Target specific elements with explicit colors to avoid variable conflicts */
-.dark .floating-tag { background: var(--navy-deep); color: #ffffff; border-color: rgba(255,255,255,0.06); box-shadow: 0 8px 24px rgba(2,8,20,0.6); }
+.dark .floating-tag { background: var(--navy-deep); color: #ffffff; border-color: rgba(255,255,255,0.06); box-shadow: 0 8px 24px rgba(2,8,20,0.6); z-index: 1; }
 .dark .floating-tag span { color: var(--teal) !important; }
 
-.dark .command-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-color: rgba(255,255,255,0.06); box-shadow: 0 18px 40px rgba(2,8,20,0.6); color: var(--ink); }
+.dark .command-card { background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border-color: rgba(255,255,255,0.09); box-shadow: 0 20px 48px rgba(2,8,20,0.6); color: var(--ink); }
 .dark .project-brief p { color: #9fb1c6 !important; }
 .dark .project-brief strong { color: #e6f7f6 !important; }
 .dark .brief-mark { color: #ffffff !important; background: var(--navy) !important; }
@@ -110,7 +110,10 @@ svg { display: block; }
 
 /* Command card specific text overrides for visibility */
 .dark .command-card > header .micro { color: #9fb1c6 !important; }
-.dark .command-card > header h2 { color: #ffffff !important; }
+.dark .command-card > header h2 { /* reverted: preserve original heading color in command-card */ }
+
+/* Ensure the in-progress / active badge sits above floating tags */
+.command-card .active { position: relative; z-index: 3; }
 .dark .command-card .project-brief p { color: #c7d6df !important; }
 .dark .command-card .control-list p { color: #c7d6df !important; }
 .dark .command-card .control-list p strong { color: #e6eef6 !important; }
