@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 const linkedIn = "https://ca.linkedin.com/in/behrang-behboodi-115abb7a";
 
 function Arrow() {
@@ -92,6 +96,32 @@ const trust = [
 ] as const;
 
 export default function Home() {
+  const [isDark, setIsDark] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const startDark = saved ? saved === "dark" : prefersDark;
+      setIsDark(startDark);
+      document.documentElement.classList.toggle("dark", startDark);
+    } catch (e) {
+      // ignore
+    }
+  }, []);
+
+  function toggleTheme() {
+    const next = !isDark;
+    setIsDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    try { localStorage.setItem("theme", next ? "dark" : "light"); } catch (e) {}
+  }
+
+  function toggleMenu() {
+    setShowMenu((s) => !s);
+  }
+
   return (
     <main id="top">
       <header className="site-header">
@@ -102,8 +132,38 @@ export default function Home() {
             <a href="#services">Services</a>
             <a href="#why">Why BeSe</a>
           </nav>
-          <a className="button button-small button-outline" href={linkedIn} target="_blank" rel="noreferrer">Discuss a project <Arrow /></a>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <button onClick={toggleTheme} aria-label="Toggle color theme" className="button button-small button-white" title="Toggle theme">
+              {isDark ? (
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              ) : (
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4" strokeWidth="1.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              )}
+            </button>
+
+            <a className="button button-small button-outline" href={linkedIn} target="_blank" rel="noreferrer">Discuss a project <Arrow /></a>
+
+            <button className="hamburger" aria-label="Toggle menu" onClick={toggleMenu} aria-expanded={showMenu}>
+              {showMenu ? (
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              ) : (
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"><path d="M3 6h18M3 12h18M3 18h18" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              )}
+            </button>
+          </div>
         </div>
+
+        {showMenu && (
+          <div className="mobile-nav" role="dialog" aria-modal="true">
+            <div className="shell">
+              <nav>
+                <a href="#process" onClick={() => setShowMenu(false)}>How it works</a>
+                <a href="#services" onClick={() => setShowMenu(false)}>Services</a>
+                <a href="#why" onClick={() => setShowMenu(false)}>Why BeSe</a>
+              </nav>
+            </div>
+          </div>
+        )}
       </header>
 
       <section className="hero section-pad">
