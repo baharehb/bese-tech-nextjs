@@ -229,6 +229,10 @@ export default function Home() {
             <a href="#why">{t.nav[2]}</a>
           </nav>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <a className="button button-small button-outline" href={linkedIn} target="_blank" rel="noreferrer">{t.header.discuss} <Arrow /></a>
+
+            <button onClick={toggleLang} className="button button-small button-outline" aria-label="Switch language">{lang.toUpperCase()}</button>
+
             <button onClick={toggleTheme} aria-label="Basculer le thème" className="button button-small button-white" title="Basculer le thème">
               {isDark ? (
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -236,10 +240,6 @@ export default function Home() {
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4" strokeWidth="1.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               )}
             </button>
-
-            <a className="button button-small button-outline" href={linkedIn} target="_blank" rel="noreferrer">{t.header.discuss} <Arrow /></a>
-
-            <button onClick={toggleLang} className="button button-small button-outline" aria-label="Switch language">{lang.toUpperCase()}</button>
 
             <button className="hamburger" aria-label="Basculer le menu" onClick={toggleMenu} aria-expanded={showMenu}>
               {showMenu ? (
