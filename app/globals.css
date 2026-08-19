@@ -92,9 +92,10 @@ svg { display: block; }
 .button > svg { margin-left: 8px; flex: 0 0 auto; }
 
 /* Target specific elements with explicit colors to avoid variable conflicts */
-.dark .floating-tag { background: rgba(255,255,255,0.04); color: #ffffff; border-color: rgba(255,255,255,0.06); }
+.dark .floating-tag { background: var(--navy-deep); color: #ffffff; border-color: rgba(255,255,255,0.06); box-shadow: 0 8px 24px rgba(2,8,20,0.6); }
 .dark .floating-tag span { color: var(--teal) !important; }
 
+.dark .command-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-color: rgba(255,255,255,0.06); box-shadow: 0 18px 40px rgba(2,8,20,0.6); color: var(--ink); }
 .dark .project-brief p { color: #9fb1c6 !important; }
 .dark .project-brief strong { color: #e6f7f6 !important; }
 .dark .brief-mark { color: #ffffff !important; background: var(--navy) !important; }
@@ -106,6 +107,16 @@ svg { display: block; }
 .dark .trust-bar { background: var(--navy-deep) !important; }
 .dark .trust-bar article p { color: #c7d6df !important; }
 .dark .trust-bar strong { color: #ffffff !important; }
+
+/* Command card specific text overrides for visibility */
+.dark .command-card > header .micro { color: #9fb1c6 !important; }
+.dark .command-card > header h2 { color: #ffffff !important; }
+.dark .command-card .project-brief p { color: #c7d6df !important; }
+.dark .command-card .control-list p { color: #c7d6df !important; }
+.dark .command-card .control-list p strong { color: #e6eef6 !important; }
+.dark .command-card .control-list p small { color: #9fb1c6 !important; }
+.dark .command-card .control-icon { background: rgba(255,255,255,0.03) !important; color: var(--teal) !important; }
+.dark .command-card .control-icon.current { background: var(--teal) !important; color: #ffffff !important; }
 
 .button { min-height: 52px; padding: 0 23px; display: inline-flex; align-items: center; justify-content: center; gap: 12px; border: 1px solid transparent; border-radius: 7px; font-size: 14px; font-weight: 660; transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease; }
 .button svg { width: 18px; height: 18px; }
