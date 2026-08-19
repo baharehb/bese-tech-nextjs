@@ -184,15 +184,18 @@ export default function Home() {
   const [isDark, setIsDark] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [lang, setLang] = useState<keyof typeof TRANSLATIONS>("en");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     try {
       const s = localStorage.getItem("lang");
       if (s === "fr" || s === "en") setLang(s as keyof typeof TRANSLATIONS);
     } catch {}
+    // mark mounted so initial server/client render match
+    setMounted(true);
   }, []);
 
-  const t = TRANSLATIONS[lang];
+  const t = (!mounted || typeof window === "undefined") ? TRANSLATIONS["en"] : TRANSLATIONS[lang];
 
   useEffect(() => {
     try {
@@ -210,7 +213,7 @@ export default function Home() {
     const next = !isDark;
     setIsDark(next);
     document.documentElement.classList.toggle("dark", next);
-    try { localStorage.setItem("theme", next ? "dark" : "light"); } catch (e) {}
+    try { localStorage.setItem("theme", next ? "dark" : "light"); } catch (e) { }
   }
 
   function toggleMenu() {
@@ -220,11 +223,11 @@ export default function Home() {
   function toggleLang() {
     const next = lang === "en" ? "fr" : "en";
     setLang(next);
-    try { localStorage.setItem("lang", next); } catch {}
+    try { localStorage.setItem("lang", next); } catch { }
   }
 
   return (
-      <main id="top">
+    <main id="top">
       <header className="site-header">
         <div className="shell nav-wrap">
           <Brand />
@@ -240,17 +243,17 @@ export default function Home() {
 
             <button onClick={toggleTheme} aria-label="Basculer le thème" className="button button-small button-outline" title="Basculer le thème">
               {isDark ? (
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
               ) : (
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4" strokeWidth="1.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4" strokeWidth="1.5" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
               )}
             </button>
 
             <button className="hamburger" aria-label="Basculer le menu" onClick={toggleMenu} aria-expanded={showMenu}>
               {showMenu ? (
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
               ) : (
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"><path d="M3 6h18M3 12h18M3 18h18" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"><path d="M3 6h18M3 12h18M3 18h18" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
               )}
             </button>
           </div>
@@ -272,7 +275,7 @@ export default function Home() {
       <section className="hero section-pad">
         <div className="hero-grid-lines" aria-hidden="true" />
         <div className="shell hero-grid">
-            <div className="hero-copy">
+          <div className="hero-copy">
             <p className="eyebrow"><span /> {t.hero.eyebrow}</p>
             <h1>{t.hero.h1[0]}<br />{t.hero.h1[1]}<br /><em>{t.hero.h1[2]}</em></h1>
             <p className="hero-lede">{t.hero.lede}</p>
@@ -286,22 +289,22 @@ export default function Home() {
             <div className="command-index" aria-hidden="true">{t.command.index}</div>
             <article className="command-card">
               <header>
-                  <div><span className="micro">{t.command.micro}</span><h2>{t.command.title}</h2></div>
-                  <span className="active"><i /> {t.command.active}</span>
+                <div><span className="micro">{t.command.micro}</span><h2>{t.command.title}</h2></div>
+                <span className="active"><i /> {t.command.active}</span>
               </header>
               <div className="project-brief">
-                  <div className="brief-mark"><span>AM</span></div>
-                  <div><small>{t.command.briefSmall}</small><strong>{t.command.briefStrong}</strong><p>{t.command.briefP}</p></div>
+                <div className="brief-mark"><span>AM</span></div>
+                <div><small>{t.command.briefSmall}</small><strong>{t.command.briefStrong}</strong><p>{t.command.briefP}</p></div>
               </div>
               <div className="control-list">
                 {t.command.controls.map(([title, small, status], idx) => (
-                  <div key={idx}><span className="control-icon">{idx < 3 ? <Check /> : <span className="control-icon current">{String(idx+1).padStart(2,'0')}</span>}</span><p><strong>{title}</strong><small>{small}</small></p><b className={status === t.command.controls[3][2] ? 'in-progress' : ''}>{status}</b></div>
+                  <div key={idx}><span className="control-icon">{idx < 3 ? <Check /> : <span className="control-icon current">{String(idx + 1).padStart(2, '0')}</span>}</span><p><strong>{title}</strong><small>{small}</small></p><b className={status === t.command.controls[3][2] ? 'in-progress' : ''}>{status}</b></div>
                 ))}
               </div>
               <footer><span>{t.command.footer[0]}</span><i /><span>{t.command.footer[1]}</span><i /><span>{t.command.footer[2]}</span></footer>
             </article>
-              <div className="floating-tag tag-one"><span>01</span> {t.command.tags[0]}</div>
-              <div className="floating-tag tag-two"><span>02</span> {t.command.tags[1]}</div>
+            <div className="floating-tag tag-one"><span>01</span> {t.command.tags[0]}</div>
+            <div className="floating-tag tag-two"><span>02</span> {t.command.tags[1]}</div>
           </div>
         </div>
       </section>
@@ -367,7 +370,7 @@ export default function Home() {
           </div>
           <div className="outcomes">
             {t.why.outcomes.map((out, i) => (
-              <article key={i}><span>{String(i+1).padStart(2,'0')}</span><div><h3>{out[0]}</h3><p>{out[1]}</p></div></article>
+              <article key={i}><span>{String(i + 1).padStart(2, '0')}</span><div><h3>{out[0]}</h3><p>{out[1]}</p></div></article>
             ))}
           </div>
         </div>
