@@ -190,7 +190,7 @@ export default function Home() {
     try {
       const s = localStorage.getItem("lang");
       if (s === "fr" || s === "en") setLang(s as keyof typeof TRANSLATIONS);
-    } catch {}
+    } catch { }
     // mark mounted so initial server/client render match
     setMounted(true);
   }, []);
