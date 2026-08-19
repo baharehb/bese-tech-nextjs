@@ -66,8 +66,20 @@ svg { display: block; }
 /* Dark mode colors for interactive elements */
 .dark .site-header { background: rgba(8,22,34,0.8); border-bottom-color: rgba(255,255,255,0.04); }
 .dark body { background: var(--paper); color: var(--ink); }
-.dark .button-white { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.06); }
-.dark .button-outline { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.06); }
+.dark .button-white,
+.dark .button-outline,
+.dark .site-header .button {
+  background: transparent; /* keep header buttons transparent in dark */
+  color: var(--ink) !important; /* use light text color in dark mode */
+  border-color: rgba(255,255,255,0.10) !important;
+}
+
+/* Ensure inline SVG icons inside header buttons inherit the light color */
+.dark .button svg,
+.dark .hamburger svg {
+  color: var(--ink) !important;
+  stroke: currentColor;
+}
 .dark .brand > span:last-child { color: var(--white); }
 
 /* Improve text contrast in dark mode for common elements */
