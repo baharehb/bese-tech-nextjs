@@ -6,8 +6,8 @@ const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 const mono = Geist_Mono({ variable: "--font-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BeSe Tech — Trusted Manufacturing Execution",
-  description: "Supplier qualification, AI-assisted sourcing and coordinated project execution for advanced manufacturing.",
+  title: "BeSe Tech — Exécution de fabrication de confiance",
+  description: "Qualification des fournisseurs, sourcing assisté par IA et exécution de projet coordonnée pour la fabrication avancée.",
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
 };
 
