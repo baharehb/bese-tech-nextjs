@@ -91,6 +91,22 @@ svg { display: block; }
 /* Ensure button icons sit to the right of text */
 .button > svg { margin-left: 8px; flex: 0 0 auto; }
 
+/* Target specific elements with explicit colors to avoid variable conflicts */
+.dark .floating-tag { background: rgba(255,255,255,0.04); color: #ffffff; border-color: rgba(255,255,255,0.06); }
+.dark .floating-tag span { color: var(--teal) !important; }
+
+.dark .project-brief p { color: #9fb1c6 !important; }
+.dark .project-brief strong { color: #e6f7f6 !important; }
+.dark .brief-mark { color: #ffffff !important; background: var(--navy) !important; }
+
+.dark .journey-number { color: #ffffff !important; background: var(--teal) !important; }
+.dark .journey-foundation { background: transparent !important; }
+.dark .journey-foundation span { color: #e6eef6 !important; background: transparent !important; }
+
+.dark .trust-bar { background: var(--navy-deep) !important; }
+.dark .trust-bar article p { color: #c7d6df !important; }
+.dark .trust-bar strong { color: #ffffff !important; }
+
 .button { min-height: 52px; padding: 0 23px; display: inline-flex; align-items: center; justify-content: center; gap: 12px; border: 1px solid transparent; border-radius: 7px; font-size: 14px; font-weight: 660; transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease; }
 .button svg { width: 18px; height: 18px; }
 .button:hover { transform: translateY(-2px); }
