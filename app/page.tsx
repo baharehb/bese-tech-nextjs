@@ -183,9 +183,14 @@ function Brand() {
 export default function Home() {
   const [isDark, setIsDark] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const [lang, setLang] = useState<keyof typeof TRANSLATIONS>(() => {
-    try { const s = localStorage.getItem("lang"); return (s === "fr" ? "fr" : "en"); } catch { return "en"; }
-  });
+  const [lang, setLang] = useState<keyof typeof TRANSLATIONS>("en");
+
+  useEffect(() => {
+    try {
+      const s = localStorage.getItem("lang");
+      if (s === "fr" || s === "en") setLang(s as keyof typeof TRANSLATIONS);
+    } catch {}
+  }, []);
 
   const t = TRANSLATIONS[lang];
 
@@ -233,7 +238,7 @@ export default function Home() {
 
             <button onClick={toggleLang} className="button button-small button-outline" aria-label="Switch language">{lang.toUpperCase()}</button>
 
-            <button onClick={toggleTheme} aria-label="Basculer le thème" className="button button-small button-white" title="Basculer le thème">
+            <button onClick={toggleTheme} aria-label="Basculer le thème" className="button button-small button-outline" title="Basculer le thème">
               {isDark ? (
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               ) : (
