@@ -48,6 +48,12 @@ const TRANSLATIONS = {
       ["07", "Confident delivery", "Documentation, packaging and delivery coordinated"],
     ],
     journeyFoundation: ["Quality assurance", "Security & IP protection", "Compliance visibility", "Clear communication"],
+    journeyHeading: {
+      eyebrow: "One connected workflow",
+      title: "From manufacturing requirement",
+      subtitle: "to delivered part.",
+      desc: "BeSe Tech connects decisions that are often fragmented across sourcing, qualification, engineering, quality and project management.",
+    },
     services: {
       heading: { eyebrow: "What BeSe Tech delivers", title: "Four services.", subtitle: "One standard of confidence.", desc: "Each service can solve a focused challenge or work as part of a coordinated manufacturing engagement." },
       list: [
@@ -115,6 +121,12 @@ const TRANSLATIONS = {
       ["07", "Livraison en confiance", "Documentation, emballage et livraison coordonnés"],
     ],
     journeyFoundation: ["Assurance qualité", "Sécurité & protection IP", "Visibilité conformité", "Communication claire"],
+    journeyHeading: {
+      eyebrow: "Un flux de travail connecté",
+      title: "Du besoin de fabrication",
+      subtitle: "à la pièce livrée.",
+      desc: "BeSe Tech relie des décisions souvent fragmentées entre sourcing, qualification, ingénierie, qualité et gestion de projet.",
+    },
     services: {
       heading: { eyebrow: "Ce que BeSe Tech fournit", title: "Quatre services.", subtitle: "Un standard de confiance.", desc: "Chaque service peut résoudre un défi ciblé ou fonctionner dans le cadre d'un engagement manufacturier coordonné." },
       list: [
@@ -195,6 +207,10 @@ export default function Home() {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   const t = (!mounted || typeof window === "undefined") ? TRANSLATIONS["en"] : TRANSLATIONS[lang];
 
   useEffect(() => {
@@ -239,7 +255,13 @@ export default function Home() {
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <a className="button button-small button-outline" href={linkedIn} target="_blank" rel="noreferrer">{t.header.discuss} <Arrow /></a>
 
-            <button onClick={toggleLang} className="button button-small button-outline" aria-label="Switch language">{lang.toUpperCase()}</button>
+            <button
+              onClick={toggleLang}
+              className="button button-small button-outline"
+              aria-label={lang === "en" ? "Passer au français" : "Switch to English"}
+            >
+              {lang === "en" ? "FR" : "EN"}
+            </button>
 
             <button onClick={toggleTheme} aria-label="Basculer le thème" className="button button-small button-outline" title="Basculer le thème">
               {isDark ? (
@@ -320,9 +342,9 @@ export default function Home() {
       <section className="journey section-pad" id="process">
         <div className="shell">
           <div className="section-heading centered">
-            <p className="eyebrow"><span /> Un flux de travail connecté</p>
-            <h2>Du besoin de fabrication<br />à la pièce livrée.</h2>
-            <p>BeSe Tech relie des décisions souvent fragmentées entre sourcing, qualification, ingénierie, qualité et gestion de projet.</p>
+            <p className="eyebrow"><span /> {t.journeyHeading.eyebrow}</p>
+            <h2>{t.journeyHeading.title}<br />{t.journeyHeading.subtitle}</h2>
+            <p>{t.journeyHeading.desc}</p>
           </div>
           <ol className="journey-grid">
             {t.journey.map(([number, title, description]) => (
@@ -335,7 +357,7 @@ export default function Home() {
             ))}
           </ol>
           <div className="journey-foundation">
-            <span>Assurance qualité</span><span>Sécurité & protection IP</span><span>Visibilité conformité</span><span>Communication claire</span>
+            {t.journeyFoundation.map((item) => <span key={item}>{item}</span>)}
           </div>
         </div>
       </section>
@@ -343,8 +365,8 @@ export default function Home() {
       <section className="services section-pad" id="services">
         <div className="shell">
           <div className="section-heading services-heading">
-            <div><p className="eyebrow eyebrow-light"><span /> Ce que BeSe Tech fournit</p><h2>Quatre services.<br />Un standard de confiance.</h2></div>
-            <p>Chaque service peut résoudre un défi ciblé ou fonctionner dans le cadre d'un engagement manufacturier coordonné.</p>
+            <div><p className="eyebrow eyebrow-light"><span /> {t.services.heading.eyebrow}</p><h2>{t.services.heading.title}<br />{t.services.heading.subtitle}</h2></div>
+            <p>{t.services.heading.desc}</p>
           </div>
           <div className="services-grid">
             {t.services.list.map((service) => (
@@ -353,7 +375,7 @@ export default function Home() {
                 <h3>{service.title}</h3>
                 <p className="service-description">{service.description}</p>
                 <ul>{service.items.map((item) => <li key={item}><span><Check /></span>{item}</li>)}</ul>
-                <footer><span>Outcome</span><strong>{service.result}</strong></footer>
+                <footer><span>{lang === "en" ? "Outcome" : "Résultat"}</span><strong>{service.result}</strong></footer>
               </article>
             ))}
           </div>
@@ -363,10 +385,10 @@ export default function Home() {
       <section className="why section-pad" id="why">
         <div className="shell why-grid">
           <div className="why-copy">
-            <p className="eyebrow"><span /> Pourquoi BeSe Tech</p>
-            <h2>La confiance est intégrée au processus — pas ajoutée à la fin.</h2>
-            <p>Trouver un fournisseur n'est qu'une décision. Un projet de fabrication réussi nécessite aussi une adéquation technique, une disponibilité vérifiée, une responsabilité claire et une exécution rigoureuse.</p>
-            <a className="button button-primary" href={linkedIn} target="_blank" rel="noreferrer">Parlons de votre projet <Arrow /></a>
+            <p className="eyebrow"><span /> {t.why.eyebrow}</p>
+            <h2>{t.why.title}</h2>
+            <p>{t.why.p}</p>
+            <a className="button button-primary" href={linkedIn} target="_blank" rel="noreferrer">{t.why.button} <Arrow /></a>
           </div>
           <div className="outcomes">
             {t.why.outcomes.map((out, i) => (
@@ -379,18 +401,18 @@ export default function Home() {
       <section className="promise">
         <div className="shell promise-inner">
           <div className="promise-mark" aria-hidden="true"><span /><i /></div>
-          <div><p className="eyebrow eyebrow-light"><span /> Notre promesse</p><h2>Fabrication complexe.<br /><em>Décisions plus claires.</em></h2><p>Nous vous aidons à obtenir la bonne pièce, du bon partenaire, avec les bons contrôles — à temps et en toute confiance.</p></div>
-          <a className="button button-white" href={linkedIn} target="_blank" rel="noreferrer">Discuter d'un projet <Arrow /></a>
+          <div><p className="eyebrow eyebrow-light"><span /> {t.promise.eyebrow}</p><h2>{t.promise.title}<br /><em>{t.promise.em}</em></h2><p>{t.promise.p}</p></div>
+          <a className="button button-white" href={linkedIn} target="_blank" rel="noreferrer">{t.promise.button} <Arrow /></a>
         </div>
       </section>
 
       <footer className="site-footer">
         <div className="shell footer-main">
-          <div><Brand /><p>Partenaires de fabrication de confiance.<br />Qualifiés, coordonnés et prêts à livrer.</p></div>
-          <div className="footer-nav"><strong>Explorer</strong><a href="#process">Comment ça marche</a><a href="#services">Services</a><a href="#why">Pourquoi BeSe</a></div>
-          <div className="footer-contact"><strong>Commencer une conversation</strong><p>Vous avez un défi de fabrication ou une opportunité de partenariat ?</p><a href={linkedIn} target="_blank" rel="noreferrer">Connectez-vous sur LinkedIn <Arrow /></a></div>
+          <div><Brand /><p>{t.footer.leftP.split("\n").map((line, index) => <span key={line}>{index > 0 && <br />}{line}</span>)}</p></div>
+          <div className="footer-nav"><strong>{t.footer.navTitle}</strong><a href="#process">{t.footer.navLinks[0]}</a><a href="#services">{t.footer.navLinks[1]}</a><a href="#why">{t.footer.navLinks[2]}</a></div>
+          <div className="footer-contact"><strong>{t.footer.contactTitle}</strong><p>{t.footer.contactP}</p><a href={linkedIn} target="_blank" rel="noreferrer">{t.footer.connect} <Arrow /></a></div>
         </div>
-        <div className="shell footer-bottom"><span>© 2026 BeSe Tech</span><span>Fabrication avancée · Qualification des fournisseurs · Exécution de projet</span></div>
+        <div className="shell footer-bottom"><span>© 2026 BeSe Tech</span><span>{t.footer.bottom}</span></div>
       </footer>
     </main>
   );
