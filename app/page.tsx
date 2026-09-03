@@ -196,22 +196,12 @@ export default function Home() {
   const [isDark, setIsDark] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [lang, setLang] = useState<keyof typeof TRANSLATIONS>("en");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    try {
-      const s = localStorage.getItem("lang");
-      if (s === "fr" || s === "en") setLang(s as keyof typeof TRANSLATIONS);
-    } catch { }
-    // mark mounted so initial server/client render match
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const t = (!mounted || typeof window === "undefined") ? TRANSLATIONS["en"] : TRANSLATIONS[lang];
+  const t = TRANSLATIONS[lang];
 
   useEffect(() => {
     try {
@@ -239,7 +229,6 @@ export default function Home() {
   function toggleLang() {
     const next = lang === "en" ? "fr" : "en";
     setLang(next);
-    try { localStorage.setItem("lang", next); } catch { }
   }
 
   return (
