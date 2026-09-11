@@ -24,6 +24,23 @@ export function Check() {
   );
 }
 
+export function EmailIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m4 7 8 6 8-6" />
+    </svg>
+  );
+}
+
+export function LinkedInIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M6.45 8.48H3.1V19h3.35V8.48ZM4.77 3.2A1.94 1.94 0 1 0 4.76 7.08 1.94 1.94 0 0 0 4.77 3.2ZM19.9 12.97c0-3.17-1.69-4.65-3.95-4.65a3.43 3.43 0 0 0-3.11 1.71V8.48H9.49V19h3.35v-5.21c0-1.37.26-2.7 1.96-2.7 1.68 0 1.7 1.57 1.7 2.79V19h3.35l.05-6.03Z" />
+    </svg>
+  );
+}
+
 export function Icon({ name }: { name: IconName }) {
   const paths: Record<IconName, React.ReactNode> = {
     search: <><circle cx="10.5" cy="10.5" r="5.5" /><path d="m15 15 4 4M4 4h5M4 7h3" /></>,

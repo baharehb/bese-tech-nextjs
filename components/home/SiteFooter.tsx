@@ -1,6 +1,6 @@
 import type { Translation } from "@/lib/i18n/translations";
 import { Brand } from "./Brand";
-import { Arrow } from "./Icons";
+import { EmailIcon, LinkedInIcon } from "./Icons";
 
 const LINKED_IN_URL = "https://www.linkedin.com/company/besetech/";
 
@@ -21,11 +21,11 @@ export function SiteFooter({ footer }: { footer: Translation["footer"] }) {
         <div className="footer-contact">
           <strong>{footer.contactTitle}</strong>
           <p>{footer.contactP}</p>
-          <a href="#contact">{footer.connect} <Arrow /></a>
-          <a href={LINKED_IN_URL} target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
+          <a href="#contact"><EmailIcon /> {footer.connect}</a>
+          <a href={LINKED_IN_URL} target="_blank" rel="noreferrer"><span className="linkedin-icon-box"><LinkedInIcon /></span> LinkedIn</a>
         </div>
       </div>
-      <div className="shell footer-bottom"><span>© 2026 BeSe Tech</span><span>{footer.bottom}</span></div>
+      <div className="shell footer-bottom"><span>© 2026 BeSe Tech. {footer.rights}</span><span>{footer.bottom}</span></div>
     </footer>
   );
 }
