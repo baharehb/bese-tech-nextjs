@@ -13,7 +13,7 @@ import { TrustBar } from "./TrustBar";
 import { WhySection } from "./WhySection";
 
 export function HomePage() {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lang, setLang] = useState<Language>("en");
 
@@ -26,13 +26,54 @@ export function HomePage() {
   useEffect(() => {
     try {
       const saved = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
-      const startDark = saved ? saved === "dark" : prefersDark;
+      const startDark = saved ? saved === "dark" : true;
       setIsDark(startDark);
       document.documentElement.classList.toggle("dark", startDark);
     } catch {
       // Local storage can be unavailable in privacy-restricted browsers.
     }
+  }, []);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+
+    const revealTargets = document.querySelectorAll<HTMLElement>(
+      ".section-heading, .journey-grid li, .journey-foundation span, .service-card, .why-copy, .outcomes article, .contact-copy, .contact-form, .promise-inner > *",
+    );
+
+    revealTargets.forEach((element, index) => {
+      element.classList.add("motion-reveal");
+      element.style.setProperty("--reveal-order", String(index % 7));
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          (entry.target as HTMLElement).classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.14, rootMargin: "0px 0px -7%" },
+    );
+
+    revealTargets.forEach((element) => observer.observe(element));
+
+    const serviceCards = document.querySelectorAll<HTMLElement>(".service-card");
+    const updateSpotlight = (event: Event) => {
+      const pointer = event as PointerEvent;
+      const card = pointer.currentTarget as HTMLElement;
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty("--spot-x", `${pointer.clientX - rect.left}px`);
+      card.style.setProperty("--spot-y", `${pointer.clientY - rect.top}px`);
+    };
+    serviceCards.forEach((card) => card.addEventListener("pointermove", updateSpotlight));
+
+    return () => {
+      observer.disconnect();
+      serviceCards.forEach((card) => card.removeEventListener("pointermove", updateSpotlight));
+    };
   }, []);
 
   function toggleTheme() {
@@ -71,8 +112,8 @@ export function HomePage() {
       />
       <ServicesSection lang={lang} services={translation.services} />
       <WhySection why={translation.why} />
-      <ContactSection contact={translation.contact} />
       <PromiseSection promise={translation.promise} />
+      <ContactSection contact={translation.contact} />
       <SiteFooter footer={translation.footer} />
     </main>
   );

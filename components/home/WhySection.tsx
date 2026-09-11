@@ -14,7 +14,7 @@ export function WhySection({ why }: { why: Translation["why"] }) {
         <div className="outcomes">
           {why.outcomes.map(([title, description], index) => (
             <article key={title}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
+              <span>{index + 1}</span>
               <div><h3>{title}</h3><p>{description}</p></div>
             </article>
           ))}

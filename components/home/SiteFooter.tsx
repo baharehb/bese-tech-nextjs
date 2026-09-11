@@ -2,7 +2,7 @@ import type { Translation } from "@/lib/i18n/translations";
 import { Brand } from "./Brand";
 import { Arrow } from "./Icons";
 
-const LINKED_IN_URL = "https://ca.linkedin.com/in/behrang-behboodi-115abb7a";
+const LINKED_IN_URL = "https://www.linkedin.com/company/besetech/";
 
 export function SiteFooter({ footer }: { footer: Translation["footer"] }) {
   return (
