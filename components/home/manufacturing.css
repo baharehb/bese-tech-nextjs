@@ -1,0 +1,40 @@
+/* Isolated decorative layers: no layout changes, pointer interception or sticky overrides. */
+.hero, .journey, .why, .contact { position: relative; isolation: isolate; }
+.manufacturing-backdrop {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  contain: strict;
+  width: min(44%, 620px);
+  height: 430px;
+  opacity: .19;
+}
+.dark .manufacturing-backdrop { opacity: .29; }
+.manufacturing-backdrop canvas { display: block; width: 100%; height: 100%; }
+.manufacturing-backdrop--impeller {
+  left: 0;
+  top: 6%;
+  width: min(50%, 760px);
+  height: 85%;
+  opacity: .1;
+}
+.dark .manufacturing-backdrop--impeller { opacity: .17; }
+.manufacturing-backdrop--bracket { left: 1%; bottom: 25px; }
+.manufacturing-backdrop--flange { left: 0; bottom: 10px; }
+.manufacturing-backdrop--gear { left: 0; bottom: 35px; }
+.why-grid, .contact-grid { position: relative; z-index: 1; }
+@media (max-width: 960px) {
+  .manufacturing-backdrop--bracket { left: auto; right: 0; top: 24px; bottom: auto; height: 350px; }
+}
+@media (max-width: 820px) {
+  .manufacturing-backdrop { width: 64%; max-width: 420px; height: 330px; opacity: .11; }
+  .dark .manufacturing-backdrop { opacity: .19; }
+  .manufacturing-backdrop--impeller { top: 30px; left: auto; right: 0; height: 380px; }
+  .manufacturing-backdrop--flange, .manufacturing-backdrop--gear { left: auto; right: 0; top: 40px; bottom: auto; }
+}
+@media (max-width: 480px) {
+  .manufacturing-backdrop { width: 82%; height: 280px; }
+  .manufacturing-backdrop--impeller { top: 70px; height: 320px; }
+}
+@media print { .manufacturing-backdrop { display: none; } }

@@ -11,6 +11,8 @@ import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 import { TrustBar } from "./TrustBar";
 import { WhySection } from "./WhySection";
+import { ManufacturingMotion } from "./ManufacturingMotion";
+import "./manufacturing.css";
 
 export function HomePage() {
   const [isDark, setIsDark] = useState(true);
@@ -115,6 +117,7 @@ export function HomePage() {
       <PromiseSection promise={translation.promise} />
       <ContactSection contact={translation.contact} />
       <SiteFooter footer={translation.footer} />
+      <ManufacturingMotion lang={lang} />
     </main>
   );
 }

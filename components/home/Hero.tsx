@@ -1,11 +1,13 @@
 import type { Translation } from "@/lib/i18n/translations";
 import { Arrow } from "./Icons";
 import { ProjectCommand } from "./ProjectCommand";
+import { ManufacturingBackdrop } from "./ManufacturingBackdrop";
 
 export function Hero({ translation: t }: { translation: Translation }) {
   return (
     <section className="hero section-pad">
       <div className="hero-grid-lines" aria-hidden="true" />
+      <ManufacturingBackdrop part="impeller" />
       <div className="shell hero-grid">
         <div className="hero-copy">
           <p className="eyebrow"><span /> {t.hero.eyebrow}</p>

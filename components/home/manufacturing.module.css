@@ -1,0 +1,17 @@
+.controls {
+  padding: 0 32px 22px;
+  background: var(--deep);
+  text-align: center;
+}
+.controls button {
+  padding: 10px 16px;
+  color: #a8b5c8;
+  border: 1px solid #34425a;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+}
+.controls button:hover { color: #fff; border-color: #20abe2; }
+.controls button:focus-visible { outline: 2px solid #20abe2; outline-offset: 4px; }
+@media print { .controls { display: none; } }

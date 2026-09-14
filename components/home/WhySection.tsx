@@ -1,9 +1,11 @@
 import type { Translation } from "@/lib/i18n/translations";
 import { Arrow } from "./Icons";
+import { ManufacturingBackdrop } from "./ManufacturingBackdrop";
 
 export function WhySection({ why }: { why: Translation["why"] }) {
   return (
     <section className="why section-pad" id="why">
+      <ManufacturingBackdrop part="flange" />
       <div className="shell why-grid">
         <div className="why-copy">
           <p className="eyebrow"><span /> {why.eyebrow}</p>

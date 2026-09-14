@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { CONTACT_LIMITS } from "@/lib/contact/schema";
 import type { Translation } from "@/lib/i18n/translations";
 import { Arrow } from "./Icons";
+import { ManufacturingBackdrop } from "./ManufacturingBackdrop";
 
 type ContactSectionProps = {
   contact: Translation["contact"];
@@ -64,6 +65,7 @@ export function ContactSection({ contact }: ContactSectionProps) {
 
   return (
     <section className="contact section-pad" id="contact">
+      <ManufacturingBackdrop part="gear" />
       <div className="shell contact-grid">
         <div className="contact-copy">
           <p className="eyebrow"><span /> {contact.eyebrow}</p>
