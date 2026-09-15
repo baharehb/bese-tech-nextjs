@@ -1,6 +1,5 @@
 import type { Translation } from "@/lib/i18n/translations";
 import { Arrow } from "./Icons";
-import { ManufacturingBackdrop } from "./ManufacturingBackdrop";
 
 type JourneySectionProps = {
   journey: Translation["journey"];
@@ -11,7 +10,6 @@ type JourneySectionProps = {
 export function JourneySection({ journey, foundation, heading }: JourneySectionProps) {
   return (
     <section className="journey section-pad" id="process">
-      <ManufacturingBackdrop part="bracket" />
       <div className="shell journey-layout">
         <div className="section-heading journey-intro">
           <p className="eyebrow"><span /> {heading.eyebrow}</p>

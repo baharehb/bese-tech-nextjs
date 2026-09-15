@@ -65,13 +65,13 @@ export function ContactSection({ contact }: ContactSectionProps) {
 
   return (
     <section className="contact section-pad" id="contact">
-      <ManufacturingBackdrop part="gear" />
       <div className="shell contact-grid">
         <div className="contact-copy">
           <p className="eyebrow"><span /> {contact.eyebrow}</p>
           <h2>{contact.title}</h2>
           <p>{contact.p}</p>
           <a href="mailto:info@besetech.ca">info@besetech.ca</a>
+          <ManufacturingBackdrop part="bracket" />
         </div>
         <form
           className="contact-form"
