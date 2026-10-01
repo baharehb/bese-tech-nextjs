@@ -117,7 +117,7 @@ export function HomePage() {
       <PromiseSection promise={translation.promise} />
       <ContactSection contact={translation.contact} />
       <SiteFooter footer={translation.footer} />
-      <ManufacturingMotion lang={lang} />
+      <ManufacturingMotion />
     </main>
   );
 }

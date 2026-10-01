@@ -1,14 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import type { Language } from "@/lib/i18n/translations";
-import styles from "./manufacturing.module.css";
+import { useEffect } from "react";
 
-export function ManufacturingMotion({ lang }: { lang: Language }) {
-  const [paused, setPaused] = useState(false);
-  const [ready, setReady] = useState(false);
-  const control = useRef<{ pause: (value: boolean) => void } | null>(null);
-
+export function ManufacturingMotion() {
   useEffect(() => {
     let cancelled = false;
     let dispose: (() => void) | undefined;
@@ -18,31 +12,16 @@ export function ManufacturingMotion({ lang }: { lang: Language }) {
       // Keep the renderer and geometry out of the initial page bundle.
       void import("@/lib/manufacturing/renderer.mjs").then(({ startManufacturing }) => {
         if (cancelled) return;
-        const runtime = startManufacturing(() => { if (!cancelled) setReady(true); });
+        const runtime = startManufacturing();
         if (!runtime) return;
-        control.current = runtime;
         dispose = runtime.dispose;
       }).catch(() => {
         // Optional artwork must never prevent navigation or form use.
       });
     });
     document.querySelectorAll("[data-manufacturing-part]").forEach(canvas => observer.observe(canvas));
-    return () => { cancelled = true; observer.disconnect(); dispose?.(); control.current = null; };
+    return () => { cancelled = true; observer.disconnect(); dispose?.(); };
   }, []);
 
-  function toggle() {
-    const next = !paused;
-    setPaused(next);
-    control.current?.pause(next);
-  }
-
-  return ready ? (
-    <div className={styles.controls}>
-      <button type="button" onClick={toggle} aria-pressed={paused}>
-        {lang === "fr"
-          ? paused ? "Reprendre l’animation" : "Mettre l’animation en pause"
-          : paused ? "Resume background animation" : "Pause background animation"}
-      </button>
-    </div>
-  ) : null;
+  return null;
 }
